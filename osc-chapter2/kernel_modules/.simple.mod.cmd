@@ -1,1 +1,0 @@
-cmd_/mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/simple.mod := printf '%s\n'   simple.o | awk '!x[$$0]++ { print("/mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/"$$0) }' > /mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/simple.mod

@@ -1,1 +1,0 @@
-cmd_/mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/Module.symvers := sed 's/ko$$/o/' /mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/modules.order | scripts/mod/modpost  -a  -o /mnt/files/projects/Unioeste/os-playground/osc-chapter2/kernel_modules/Module.symvers -e -i Module.symvers  -N -T -
