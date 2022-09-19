@@ -18,7 +18,7 @@ int main(void) {
   int shm_fd;
   char *ptr;
 
-  // crate the shared mem file object
+  // create the shared mem file object
   shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
 
   // configure the size of the shared mem object
