@@ -13,28 +13,22 @@
 #define MAX_CMD_LEN 1024
 #define NAME "time_shm"
 
-enum { READ, WRITE } pipe_ends;
-
 int main(int argc, char *argv[]) {
   pid_t pid;
-  /* File descriptors of the pipe, read and write ends */
-  int fd[2];
+  id_t shm_id;   // shared memory id
+  char *shm_ptr; // shared memory pointer
   struct timeval end, *start;
-
-  /* Memory buffer */
-  void *buffer = (void *)malloc(sizeof(struct timeval));
 
   if (argc < 2) {
     fprintf(stderr, "Usage: %s <command> <...command args>", argv[0]);
     exit(1);
   }
 
-  /* create the pipe */
-  if (pipe(fd) == -1) {
-    fprintf(stderr, "Pipe failed");
-    free(buffer);
-    return 1;
-  }
+  /* Creation and mapping of the shm object*/
+  shm_id = shm_open(NAME, O_CREAT | O_RDWR, 0666);
+  ftruncate(shm_id, sizeof(struct timeval));
+  shm_ptr = mmap(0, sizeof(struct timeval), PROT_READ | PROT_WRITE, MAP_SHARED,
+                 shm_id, 0);
 
   /* Creation of the child process */
   pid = fork();
@@ -44,26 +38,17 @@ int main(int argc, char *argv[]) {
     exit(1);
   } else if (pid == 0) {
     /* Child process */
-    close(fd[READ]);                                  // close unused pipe end
-    gettimeofday((struct timeval *)buffer, NULL);     // get time to buffer
-    write(fd[WRITE], buffer, sizeof(struct timeval)); // write to pipe
+    gettimeofday((struct timeval *)shm_ptr, NULL);
     execvp(*(argv + 1), argv + 1);
-  } else {                                          /* Parent process */
-    close(fd[WRITE]);                               // close unused pipe end
-    wait(NULL);                                     // wait for child to finish
-    gettimeofday(&end, NULL);                       // get end time
-    read(fd[READ], buffer, sizeof(struct timeval)); // read from pipe
-    start = (struct timeval *)buffer;
+  } else { /* Parent process */
+    wait(NULL);
+    gettimeofday(&end, NULL);
+    start = (struct timeval *)shm_ptr;
 
     printf("\nElapsed time: %ldms\n",
            ((end.tv_sec - start->tv_sec) * 1000000L + end.tv_usec) -
                start->tv_usec);
   }
-
-  // cleanup
-  free(buffer);
-  close(fd[READ]);
-  close(fd[WRITE]);
 
   exit(0);
 }
