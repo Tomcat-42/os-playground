@@ -1,0 +1,8 @@
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/BufferSemaphore.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/Main.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/BufferReentrantLock.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/Buffer.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/Producer.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/Consumer.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/IBuffer.java
+/mnt/files/projects/Unioeste/so/os-playground/os_practices/6-semaphores/producer_consumer/src/main/java/com/producer_consumer/BufferSyncronized.java
